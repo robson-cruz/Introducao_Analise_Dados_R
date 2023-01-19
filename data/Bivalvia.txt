@@ -1,4 +1,0 @@
-n	port443	classe	ordem	familia	especie_subespecie	categoria
-679	*	Bivalvia	Ostreoida	Pectinidae	Euvola ziczac	EN
-1275	*	Bivalvia	Unionoida	Hyriidae	Diplodon koseritzi	EN
-1276	*	Bivalvia	Unionoida	Mycetopodidae	Mycetopoda legumen	EN
