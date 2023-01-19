@@ -1,0 +1,6 @@
+"id" "nome" "volume"
+1 "Mezilaurus itauba" 3.25
+2 "Apuleia leiocarpa" 6.51
+3 "Cedrela odorata" 7.45
+4 "Amburana acreana" 8.81
+5 "Hymenolobium excelsum" 4.35
