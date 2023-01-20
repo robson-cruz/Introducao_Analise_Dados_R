@@ -1,0 +1,438 @@
+---
+title: 'Introdução à Análise de Dados com Linguagem R'
+subtitle: 'Aula 5'
+
+output:
+        pdf_document:
+                number_sections: true
+                toc: true
+                includes:
+                        in_header: header.tex
+        html_document:
+                css: style.css
+                number_sections: true
+                toc: true
+                toc_float:
+                        collapsed: false
+                        toc_depth: 2
+                df_print: paged
+                
+author: 'Analista Ambiental Robson Cruz'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Salvar Data Frame
+
+## .csv
+
+```{r}
+# criar um data frame
+df <- data.frame(
+    # Definir a coluna id
+    id = c(1, 2, 3, 4, 5),
+    # Definir a coluna nome
+    nome = c('Mezilaurus itauba', 'Apuleia leiocarpa', 'Cedrela odorata', 
+             'Amburana acreana', 'Hymenolobium excelsum'),
+    # Definir a coluna volume
+    volume = c(3.25, 6.51, 7.45, 8.81, 4.35)
+)
+```
+
+
+
+```{r}
+# Salvar no disco como arquivo .csv
+write.csv2(df, './output/data_frame.csv')
+```
+
+## .txt
+```{r}
+# Salvar no disco como arquivo .txt
+write.table(df, './data_frame.txt', row.names = FALSE)
+```
+
+# 2. Fatores
+<p style="text-align:justify;">Em R as variáveis categóricas podem ser classificadas e ordenadas através da função <mark style="background-color:#F4F4F4">factor( )</mark>. Ao converter ordenar categoricamente um vetor através desta função, nosso vetor passa a ser denominado de fator.</p>
+
+
+```{r}
+# Definir o vetor de dados categóricos "sexo"
+sexo <- c("macho", "femea", "femea", "macho", 
+          "macho", "macho", "femea", "macho")
+```
+
+<p style="text-align:justify;">O trecho de código a seguir mostra a estrutura do vetor <mark style="background-color:#F4F4F4">sexo</mark>, obtida através da função <mark style="background-color:#F4F4F4">str( )</mark>, o retorno desta função nos diz que o tipo de vetor em questão é caracteres e possui oito elementos.</p>
+
+```{r}
+# Checar a estrutura do vetor
+str(sexo)
+```
+
+```{r}
+# Resumir os dados do vetor sexo
+summary(sexo)
+```
+
+<p style="text-align:justify;">A função <mark style="background-color:#F4F4F4">levels( )</mark> é utilizada para inspecionar os níveis de um fator, como nosso vetor não foi definido como fator retorna <mark style="background-color:#F4F4F4">NULL</mark>.</p>
+
+```{r}
+# checar os níveis do vetor
+levels(sexo)
+```
+
+<p style="text-align:justify;">Outra forma de verificar se um vetor de variáveis categóricas possui fatores é através da função <mark style="background-color:#F4F4F4">is.factor( )</mark>. Esta função retorna TRUE em caso do vetor possuir fatores definidos, caso contrário retorna FALSE.</p>
+
+
+```{r}
+# Checar se uma vetor é um fator
+is.factor(sexo)
+```
+
+A seguir definimos o vetor sexo como fator
+
+```{r}
+# Converter o vetor sexo para fator
+sexo_fator <- factor(sexo, levels = c("macho", "femea"))
+
+# checar a estrutura do fator
+str(sexo_fator)
+```
+
+```{r}
+# checar os níveis do fator
+levels(sexo_fator)
+```
+
+```{r}
+# Resumir os dados do fator sexo através de um gráfico
+plot(sexo_fator)
+```
+
+O código abaixo mostra como atribuir rótulos ao níveis do fatores:
+
+```{r}
+sexo_fator <- factor(sexo, levels = c("macho", "femea"), 
+                     labels = c("M", "F"))
+
+str(sexo_fator)
+levels(sexo_fator)
+```
+
+```{r}
+sexo_fator
+```
+
+## Converter colunas de uma data frame para `factor`
+
+### Fatores em Inventário Florestal
+
+```{r}
+# Lê uma planilha csv com dados de inventário florestal
+inventario <- read.csv2('./data/UMF_4_UPA_4F_SINAFLOR_v03.csv',
+                encoding = 'latin1')
+```
+
+```{r}
+# Converter a coluna "QF" (qualidade do fuste) para fatores
+inventario$QF <- factor(inventario$QF, 
+                        levels = c(1, 2, 3), 
+                        ordered = TRUE)
+```
+
+```{r}
+# Resumo da coluna QF
+summary(inventario$QF)
+```
+
+```{r}
+# Visualização gráfica dos fatores
+plot(inventario$QF)
+```
+
+## Atribuir Rótulos ao Fator
+Agora iremos atribuir rótulos ao nosso fator, os rótulos serão: Fuste 1, Fuste 2 e Fuste 3.
+
+```{r}
+# Converter a coluna "QF" (qualidade do fuste) para fatores e atribuir rótulos
+inventario$QF <- factor(
+    inventario$QF, 
+    levels = c(1, 2, 3), 
+    label = c('Fuste 1', 'Fuste 2', 'Fuste 3'),
+    ordered = TRUE
+)
+```
+
+```{r}
+# Resumo da coluna QF
+summary(inventario$QF)
+```
+
+```{r}
+# Mostrar os dados com a inserção de rótulos aos fatores
+head(inventario)
+```
+
+
+```{r}
+# Visualização gráfica dos fatores
+plot(inventario$QF)
+```
+
+## Fatores - Lista Espécies Fauna Ameaçada de Extinção
+
+```{r}
+# Leitura dos dados
+fauna <- read.csv2('./data/DF_port_MMA_300-2022_fauna.csv')
+
+# Mostrar as seis primeiras linhas dos dados
+head(fauna)
+```
+
+```{r}
+# Valores únicos para categoria de ameaça
+unique(fauna$categoria)
+```
+
+```{r}
+# Resumo da coluna categoria
+summary(fauna$categoria)
+```
+
+```{r}
+# Converter os dados da coluna categoria para fatores
+fauna$categoria <- factor(
+    fauna$categoria, 
+    levels = c('VU', 'EN', 'CR', 'CR (PEX)', 'EX', 'RE', 'EW'),
+    ordered = TRUE
+)
+```
+
+```{r}
+# Resumo da coluna categoria
+summary(fauna$categoria)
+```
+
+```{r}
+# Visualização Gráfica dos Fatores
+plot(fauna$categoria)
+```
+
+# Listas
+
+<p style="text-align:justify">Imagine que você precisa ir ao supermercado, para se manter organizado e lembrar o que comprar, você provavelmente fará uma lista de compras. Pense no que pode haver nessa lista: Cereais, papel toalha, frutas, detergente... Vários tipos de coisas com formas e estruturas diferentes. Não importa o que seja, se você puder lembar, poderá colocá-los em sua lista. Assim como sua lista de compras, em R, existe um tipo de superestrutura de dados, também chamada de Lista, que permite agrupar outras estruturas de dados em, digamos, uma lista.</p>
+<p style="text-align:justify">Para criar uma lista é simples, basta usar a função <b><mark style="background-color:#F4F4F4">list( )</b></mark> e passar todas as estruturas de dados que você deseja dentro de sua lista.</p>
+<p style="text-align:justify">Agora iremos criar a seguinte lista em R:</p>
+
+ * farinha de trigo
+ * farinha de mandioca
+ * farinha de milho
+ * creme dental
+ * papel higiênico
+ * sabonete
+ * água sanitária
+ * detergente
+ * carne
+ * frango
+ * peixe
+ * cerveja
+ * sonrisal
+ * eparema
+ 
+```{r}
+lista <- list(c('farinha de trigo', 'farinha de mandioca', 'farinha de milho'), 
+              c('creme dental', 'papel higiênico', 'sabonete'),
+              c('água sanitária', 'detergente'),
+              c('carne', 'frango', 'peixe'),
+              c('cerveja', 'sonrisal', 'eparema'))
+
+print(lista)
+```
+ 
+## Acessando elementos em uma lista
+
+```{r}
+# Selecionar todos os valores do primeiro ítem da lista
+print(lista[[1]])
+```
+
+```{r}
+# Todos os elementos do terceiro vetor da lista
+print(lista[[3]])
+```
+
+```{r}
+# Primeiro valor do primeiro da lista
+print(lista[[1]][[1]])
+```
+
+```{r}
+# Quarto e Quinto ítens da lista
+nao_esquecer <- lista[c(4, 5)]
+print(nao_esquecer)
+```
+
+## Nomear os elementos de uma lista
+
+```{r}
+# Definir nomes para os elementos da lista
+names(lista) <- c('cereais', 'higiene', 'limpeza',
+                  'proteína', 'birita')
+```
+
+```{r}
+# No primeiro ítem da lista, filtrar apenas o primeiro sub-ítem
+lista$cereais[[1]]
+```
+
+```{r}
+# No segundo ítem da lista, filtar o primeiro sub-ítem
+# No elemento flora, filtrar a primeira espécie
+lista$higiene[[1]]
+```
+
+## Funções Aplicadas à lista
+
+Praticamento todas as funções vistas nas aulas anteriores se aplicam à lista.
+
+### `str` e `summary`
+
+```{r}
+# Verificar a estrutua da lista
+str(lista)
+```
+
+```{r}
+# Obter um resumo dos dados armazenados na lista
+summary(lista)
+```
+
+### `lapply` e `sapply`
+
+As funções `lapply` e `sapply` são uma variação da função `apply` para iterar sobre aos elementos de uma lista. Esta funções diferem somente na forma como os resultados são mostrados na tela. Para a função `lapply` a saída é na forma de lista, enquanto `sapply` apresenta uma saída vetorial.
+
+```{r}
+lista = list(x = c(1.55, 1.15, 1.71, 1.89, 1.65, 1.44), 
+             y = c(12.51, 9.89, 21.22, 22.11, 9.98))
+
+print(lapply(lista, mean))
+```
+
+```{r}
+# Média para cada elemento da lista
+print(sapply(lista, mean))
+```
+
+```{r}
+# Média apenas do elemento x da lista
+print(mean(lista[[1]]))
+```
+
+### **`toString()`**
+
+```{r}
+print(toString(lista))
+```
+
+## Converter Vetor para Lista
+Há duas maneiras de converter um vetor para lista, uma delas é usar a função `list()` e passar como parâmetro o nome do vetor, a outra forma é usar a função `as.list()`. A diferença entre essas essas função é que `list()` produzirá uma lista formada pelos várias elementos do vetor, ao passo que a função `as.list()` irá gerar uma lista para cada elemento do vetor, coforme demonstrado no código a seguir.
+
+
+```{r}
+# Definição do vetor "numeros"
+numeros <- c(1:26)
+
+# Definição do vetor "letas"
+letras <- letters
+
+lista <- list(numeros, toupper(letras))
+
+print(lista)
+```
+
+### `as.list`
+
+```{r}
+x = c(1.55, 1.15, 1.71, 1.89, 1.65, 1.44)
+
+lista2 <- as.list(x)
+
+print(head(lista2))
+```
+
+
+### `list`
+
+```{r}
+# Convter o vetor "numeros" para lista usando a função list()
+print(list(x))
+```
+
+Podemos aplicar função aos vetores no momento de criação da lista
+
+```{r}
+# Definição do vetor "numeros"
+numeros <- c(1:26)
+
+# Definição do vetor "letas"
+letras <- letters
+
+lista <- list(numeros, toupper(letras))
+
+print(lista)
+```
+
+
+
+```{r}
+## Converter Dataframe para Lista
+
+# definir o dataframe 
+df <- data.frame(a = c(1:5), b = c(6:10))
+
+# Mostrar os dados do dataframe
+df
+```
+
+```{r}
+# converter o dataframe para lista utilizando a função list()
+lista_df <- list(df)
+print(lista_df)
+```
+
+```{r}
+# converter o dataframe para lista utilizando a função as.list()
+lista_df <- as.list(df)
+print(lista_df)
+```
+
+`as.list()` converte cada elemento do vetor em um elemento de lista, no caso de data frame cada coluna será uma elemento de lista.
+
+# Conhecendo a Versatilidade de uma lista
+A lista a seguir contém todas as estruturas de dados que conhecemos neste curso, e formada pelo vetor de diâmetros de árvores (dap), uma matriz, um _array_, um _data frame_ e uma lista. Observe que podemos inserir lista dentro de lista.
+
+```{r}
+li <- readRDS('./data/lista_exemplo.rds')
+
+str(li)
+```
+
+# Aplicação do uso de lista em R
+<p style="text-align:justify">A seguir conheceremos uma lista gerada através de <i><a href="https://www.in.gov.br/en/web/dou/-/portaria-gm/mma-n-300-de-13-de-dezembro-de-2022-450425464">webscraping</a></i> na página da Impresa Nacional, utilizando o pacote R <mark style="background-color:#F4F4F4">Rvest</mark>. O objetivo foi extrair os dados das espécies da flora e fauna ameaçadas de extinção.</p>
+
+```{r}
+# carregar a lista das espécies da fauna
+lista_fauna <- readRDS('./data/lista_classes_fauna_ameacada.rds')
+
+# Resumir os dados da lista
+str(lista_fauna)
+```
+
+```{r}
+#  Selecionar e mostrar a classe das aves
+head(lista_fauna$Aves)
+tail(lista_fauna$Aves)
+```
+
