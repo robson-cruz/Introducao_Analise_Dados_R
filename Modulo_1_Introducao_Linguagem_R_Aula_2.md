@@ -170,7 +170,6 @@ print(tapply(dap, categoria, mean))
 any(dap >= 40)
 ```
 
-
 TRUE
 
 
@@ -182,7 +181,6 @@ TRUE
 ```R
 all(dap < 40)
 ```
-
 
 FALSE
 
