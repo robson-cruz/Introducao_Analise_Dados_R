@@ -411,7 +411,7 @@ print(lista_df)
 `as.list()` converte cada elemento do vetor em um elemento de lista, no caso de data frame cada coluna será uma elemento de lista.
 
 ## Conhecendo a Versatilidade de uma lista
-A lista a seguir contém todas as estruturas de dados que conhecemos neste curso, e formada pelo vetor de diâmetros de árvores (dap), uma matriz, um _array_, um _data frame_ e uma lista. Observe que podemos inserir lista dentro de lista.
+A lista a seguir contém todas as estruturas de dados que conhecemos neste curso, e formada pelo vetor de diâmetros de árvores (dap), uma matriz, um _array_, um _data frame_, uma lista e um dos histogramas criado durante a segunda aula do curso. Observe que podemos inserir lista dentro de lista, assim como quaisquer objetos R.
 
 ```{r}
 li <- readRDS('./data/lista_exemplo.rds')
@@ -453,6 +453,12 @@ li$Lista
 ```
 
 
+### Extraindo o Gráfico Presente na Lista
+
+```{r fig.align='center'}
+plot(li$Gráfico)
+```
+
 # Aplicação do uso de lista em R
 <p style="text-align:justify">A seguir conheceremos uma lista gerada através de <i><a href="https://www.in.gov.br/en/web/dou/-/portaria-gm/mma-n-300-de-13-de-dezembro-de-2022-450425464">webscraping</a></i> na página da Impresa Nacional, utilizando o pacote R <mark style="background-color:#F4F4F4">Rvest</mark>. O objetivo foi extrair os dados das espécies da flora e fauna ameaçadas de extinção.</p>
 
@@ -469,4 +475,3 @@ str(lista_fauna)
 head(lista_fauna$Aves)
 tail(lista_fauna$Aves)
 ```
-
