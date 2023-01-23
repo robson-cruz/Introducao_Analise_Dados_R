@@ -39,6 +39,14 @@ names(lista) <- c('cereais', 'higiene', 'limpeza',
 
 attr(lista, 'Observação') <- 'Primeira lista criado no curso'
 
+# grafico
+plot <- hist(dap, main = 'Distribuição da variável DAP',
+     xlab = 'DAP (cm)', 
+     ylab = 'Frequência', 
+     labels = TRUE, col = 'steelblue',
+     density = 15,
+     angle = 60)
+
 # Criar uma lista com todos os objetos acima
 lista_completa <- list(
         # vetor
@@ -50,11 +58,13 @@ lista_completa <- list(
         # data frame
         df,
         # lista
-        lista
+        lista,
+        # plot
+        plot
 )
 
 # definir nomes para os elementos da lista
-names(lista_completa) <- c('Vetor', 'Matriz', 'Array', 'Data frame', 'Lista')
+names(lista_completa) <- c('Vetor', 'Matriz', 'Array', 'Data frame', 'Lista', 'Gráfico')
 str(lista_completa)
 
 # salvar a lista
