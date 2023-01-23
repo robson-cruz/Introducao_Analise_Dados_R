@@ -1,0 +1,489 @@
+---
+title: 'Introdução à Análise de Dados com Linguagem R'
+subtitle: 'Aula 3'
+
+output:
+        pdf_document:
+                number_sections: true
+                toc: true
+                includes:
+                        in_header: header.tex
+        html_document:
+                css: style.css
+                number_sections: true
+                toc: true
+                toc_float:
+                        collapsed: false
+                        toc_depth: 2
+                df_print: paged
+                
+author: 'Analista Ambiental Robson Cruz'
+---
+
+
+# Matriz
+Matriz é uma estrutura de dados semelhante a vetor, exceto que na matriz temos 2 dimensões, uma para as linhas e outra para as colunas. O código a seguir mostra a criação de uma matriz 3x3.
+
+
+```{r}
+matriz <- matrix(1:9, nrow = 3, ncol = 3)
+matriz
+```
+
+
+## Somar linhas e Colunas de uma Matriz
+
+A função `apply`, parte do pacote `base` do R, pode ser usada para aplicar uma determinada função a uma matriz, e recebe 3 argumentos como parâmetro: a matriz contendo os dados, a indicação do sentido de aplicação da função, representado pelos números 1 (linha) ou 2 (coluna) e a função a ser aplicada.
+
+Somar as linhas de uma matriz:
+
+
+```{r}
+print(apply(matriz, 1, sum))
+```
+
+
+Somar os valores das colunas de uma matriz:
+
+
+```{r}
+print(apply(matriz, 2, sum))
+```
+
+
+## Somar os Elementos da Diagonal de uma Matriz
+
+
+```{r}
+m <- matrix(1:9, nrow = 3, ncol = 3)
+print(m)
+```
+
+
+```{r}
+sum(diag(m))
+```
+
+
+## Sentido de Preenchimento dos Dados em uma Matriz
+A função `matrix()` tem por padrão o preenchimento no sentido das colunas, porém, em alguns casos podemos necessitar preencher uma matriz no sentido das linhas, para isso devemos definir o valor do argumento `byrow = TRUE`
+
+
+```{r}
+matriz <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+print(matriz)
+```
+
+
+## Atribuir Nomes as Linhas e Colunas de uma Matriz 
+
+
+```{r}
+matriz <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+print(matriz)
+```
+
+
+```{r}
+# Atribuir Nomes as Linhas da matriz
+rownames(matriz) <- c('Linha 1', 'Linha 2', 'Linha 3')
+```
+
+
+```{r}
+print(matriz)
+```
+
+
+```{r}
+# Atribuir Nomes as colunas da matriz
+colnames(matriz) <- c('Coluna 1', 'Coluna 2', 'Coluna 3')
+```
+
+
+```{r}
+matriz
+```
+
+
+
+## Obter os nomes das Linhas e Colunas de uma Matriz
+
+**Somente os Nomes das Linhas**
+
+
+```{r}
+rownames(matriz)
+```
+
+
+
+**Somente os Nomes das Colunas**
+
+
+```{r}
+colnames(matriz)
+```
+
+
+**Nomes das Linhas e Colunas**
+
+
+```{r}
+dimnames(matriz)
+```
+
+
+
+## Acessar Linhas e Colunas da Matriz
+
+
+```{r}
+# mostrar a primeira linha da matriz
+matriz[1, ]
+```
+
+
+```{r}
+# mostrar a segunda Coluna da matriz
+matriz[, 2]
+```
+    
+
+## Acessar Elementos da Matriz
+
+
+```{r}
+# Mostrar o elemento pertencente a segunda linha e segunda coluna
+matriz[2, 2]
+```
+
+    
+
+## Alterar os Elementos de uma Matriz
+
+
+```{r}
+# alterar o elemento da linha 2 coluna 2, número 5, para 0
+matriz[2, 2] <- 0
+matriz
+```
+
+    
+
+## Operações com Matrizes
+
+### **Maior e menor valor entre os elementos da matriz**
+
+
+```{r}
+# maior valor entre os elementos da matriz
+max(matriz)
+```
+
+
+
+```{r}
+# menor valor entre os elementos da matriz
+min(matriz)
+```
+
+
+
+### **Maior e menor valor de uma linha ou coluna da matriz**
+
+
+```{r}
+# maior valor entre os elementos da primeira linha
+max(matriz[1,])
+```
+
+
+```{r}
+# menor valor entre os elementos da terceira coluna
+min(matriz[,3])
+```
+
+
+### **Média dos elementos da matriz**
+
+
+```{r}
+mean(matriz)
+```
+
+
+
+### **Somar os valores das linhas e colunas**
+
+### **Soma de elementos da matriz**
+
+
+```{r}
+# somar os valores da primeira linha
+sum(matriz[1, ])
+```
+
+
+
+```{r}
+# somar os valores da terceira coluna
+sum(matriz[, 3])
+```
+
+
+
+```{r}
+# somar os elementos da segunda linha da matriz
+sum(matriz[2, ])
+```
+
+
+### **Diagonal da matriz**
+
+
+```{r}
+# Obter a diagonal da matriz
+diag(matriz)
+```
+
+
+```{r}
+# Obter a soma entre os elementos da diagonal da matriz
+sum(diag(matriz))
+```
+
+
+### **Transposição de Matriz**
+
+
+```{r}
+# Transpor a matriz
+t(matriz)
+```
+
+
+### **Soma entre matrizes**
+
+
+```{r}
+# Definição das matrizes "a" e "b"
+a <- matrix(1:6, nrow = 3, byrow = TRUE)
+b <- matrix(1:6, nrow = 3, byrow = TRUE)
+
+a
+b
+```
+
+
+```{r}
+# soma das matrizes a e b
+a + b
+```
+
+
+
+## Combinar Vetores em Matriz
+Em R podemos combinar vetores para formar uma matriz em que cada vetor fará parte de uma coluna ou linha da matriz. Para combinar vetores em linhas matriciais usamos a função `rbind()`, e para combinar vetores em colunas da matriz usamos a função `cbind()`.
+O exemplo a seguir mostra como combinas três vetores com orientação nas linhas de uma matriz.
+
+
+```{r}
+# Vetor referente a uma amostra de valores de ações da Apple
+apple <- c(109.49, 109.90, 109.11, 109.95, 111.03)
+
+# Vetor referente a uma amostra de valores de ações da IBM
+ibm <- c(159.82, 160.02, 159.84, 160.35, 164.79)
+
+# Vetor referente a uma amostra de valores de ações da Microsoft
+microsoft <- c(59.20, 59.25, 60.22, 59.95, 61.37)
+
+# combinar os vetores em uma matriz onde cada linha receberá os valores dos vetores
+rbind(apple, ibm, microsoft)
+```
+
+
+
+A seguir é demonstrado como combinar os elementos de vetores em colunas de uma matriz.
+
+
+```{r}
+# combinar os vetores em uma matriz onde cada coluna receberá os valores dos vetores
+cbind(apple, ibm, microsoft)
+```
+
+
+
+## Matriz de Correlação
+Como exemplo prático para demonstrar o uso de matriz para cálcular a correlação entre variáveis, usaremos os dados referente a publicação:
+
+Ramsey, F.L. and Schafer, D.W. (2013). _The Statistical Sleuth_: A Course in Methods of Data Analysis (3rd ed), Cengage Learning.
+
+Os dados são os valores médios de peso cerebral (g), peso corporal (g), duração da gestação (dias) e tamanho da prole de 96 espécies de mamíferos.
+
+
+```{r}
+# Carregar os dados vetoriais
+load('./data/dados_modulo_1_aula_3.rda')
+
+# listar os objetos no ambiente R
+ls()
+```
+
+
+```{r}
+# Combinar os vetores em uma matriz
+m <- cbind(cerebro, corpo, gestacao, prole)
+
+# Mostrar as primeiras 6 linhas da matriz
+head(m)
+
+# Mostrar as últimas 6 linhas da matriz
+tail(m)
+```
+
+
+
+## Atribuir um Atributo a uma Matriz
+Para inserir um atributo a matriz utilizamos a função `attr()`, passando como argumentos a matriz e um rótulo para nomear o atributo. Como demonstração iremos inserir um atributo a nossa matriz definida anteriormente, este atributo será a referência bibliográfica dos dados.
+
+
+```{r}
+# Obter os atributos da matriz
+attributes(m)
+```
+
+
+```{r}
+# Inserir o atributo
+attr(m, 'Fonte') <- 'Ramsey, F.L. and Schafer, D.W. (2013). The Statistical Sleuth: A Course in Methods of Data Analysis (3rd ed), Cengage Learning.'
+```
+
+
+```{r}
+# conferir os atributos da matriz
+attributes(m)
+```
+
+
+## Gerar Gráficos a partir dos Dados de uma Matriz
+
+
+```{r}
+# gráfico da relação entre as duas primeiras colunas (cerebro e corpo)
+plot(m)
+```
+
+
+
+```{r}
+# gráfico da relação entre as duas primeiras colunas (gestacao e prole) 
+# plot(m[, 3], m[, 4])
+plot(m[,'gestacao'], m[,'prole'])
+```
+    
+
+
+# Array
+Em R array é uma estrutura de dados tridimensional. Criamos um array através da função `array(x, dim)`, onde o parâmetros `x` é um vetor e `dim` são as dimensões do array.
+
+
+```{r}
+a <- array(c(1:24), dim = c(3, 3, 2))
+```
+
+
+```{r}
+a
+```
+
+
+
+## Acessar Elementos do Array
+
+
+```{r}
+# Acessar a primeira tabela
+a[, , 1]
+```
+
+
+
+```{r}
+# Acessar a primeira linha da tabela 1
+print(a[1, , 1])
+```
+
+
+```{r}
+# Acessar a primeira coluna da segunda tabela
+print(a[, 1, 2])
+```
+    
+
+## Operações com Arrays
+
+
+```{r}
+# Obter o maior valor da primeira tabela
+max(a[, , 1])
+```
+
+
+
+```{r}
+# Obter a soma da primeira coluna da tabela 1
+sum(a[, 1, 1])
+```
+
+
+```{r}
+# obter a média dos valores da segunda linha da segunda tabela
+mean(a[, 2, 2])
+```
+
+
+```{r}
+# Obter a soma entre os valores da primeira coluna da table 1 com os da
+# primeira coluna da tabela 2
+sum(a[, 1, 1], a[, 1, 2])
+```
+
+
+
+```{r}
+# obter a soma dos valores da diagonal da primeira tabele
+sum(diag(a[, , 1]))
+```
+
+
+## Atribuir Nomes as Dimensões do Array
+
+Assim como podemos atribuir nomes aos elementos de um vetor e as duas dimensões de uma matriz, também é possível o fazer para arrays. Para tal utilizamos a função `dimnames()`, passando como parâmetros três vetores com os nomes das linhas da matriz, nomes das colunas e nomes das matrizes.
+
+
+```{r}
+a <- array(c(1:24),  # Vetor
+           dim = c(3, 3, 2),  # Dimensões do array 
+           dimnames = list(c('L1', 'L2', 'L3'),  # Nome das linhas das matrizes
+                           c('C1', 'C2', 'C3'),  # Nome das colunas das matrizes
+                           c('Matriz 1', 'Matriz 2')))  # Nomes das Matrizes
+
+print(a)
+```
+    
+    
+
+## Inserir Atributo em um Array
+
+
+```{r}
+# inserir um atributo ao array "a"
+attr(a, 'Observação') <- 'Meu primeiro array em R!!'
+```
+
+
+```{r}
+# checar os atributos do array
+print(attributes(a))
+```
