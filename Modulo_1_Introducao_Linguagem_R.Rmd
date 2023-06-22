@@ -132,22 +132,26 @@ _Atenção: Em seu nome_de_usuario insira seu nome de usuário._
 | <= |menor ou igual a |
 
 # Objeto em R
-Um objeto é simplesmente qualquer variável que armaneza um caractere numérico, alfabético ou uma cadeia de carateres (_string_). Em R temos objetos especiais para manipulação de grande volume de dados, a exemplo de vetores, listas e dataframes.
-Para criação de um objeto se utiliza o operador de atribuição `<-`. Nos exemplos a seguir são criados os objetos `x`, `y` e `z` para armazenar um número inteiro, uma letra e uma frase.
+Em R, um objeto é uma entidade que armazena dados ou informações. Pode ser qualquer tipo de dado, como números, texto, vetores, matrizes, data frames, funções, entre outros. Os objetos em R são criados durante a execução de comandos ou atribuição de valores a variáveis.
 
+Quando se atribui um valor a uma variável em R, está criando um objeto. Por exemplo:
 
 ```{r}
-# definição de um objeto do tipo inteiro
+# Exemplo 1
 int <- 42
 
-# definição de um objeto do tipo caractere
+# Exemplo 2
 letra <- "R"
 
-# # definição de um objeto do tipo string (cadeia de caracteres)
+# Exemplo 3
 string <- "R é massa"
 ```
 
-<p style="text-align:justify">Em ambos os trechos de código acima se observa o uso do caractere `#`, em R e python este caractere é utilizado para fazer comentário no código, portanto, toda linha que contém este caractere é ignorada na execução do programa.</p>
+<p style="text-align:justify">No caso do exemplo 1, o valor 42 é atribuído à variável "int", criando um objeto chamado "int" que armazena esse valor em memória. Podemos usar esse objeto posteriormente em cálculos ou operações. No exemplo 2 o caractere "R" é atribuído à variável letra, criando um objeto do tipo caractere. No exemplo 3 a cadeia de caracteres "R é massa" é atribuída à variável string, criando um objeto do tipo caractere</p>
+
+<p style="text-align:justify">Os objetos em R têm um nome e podem ser referenciados por esse nome em comandos posteriores. É importante notar que, em R, os objetos são armazenados em memória durante a sessão de trabalho e podem ser acessados e manipulados conforme necessário.</p>
+
+<p style="text-align:justify">Nos trechos de código acima se observa o uso do caractere `#`, em R e python este caractere é utilizado para fazer comentário no código, portanto, toda linha que contém este caractere é ignorada na execução do programa.</p>
 A seguir é mostrado como fazer comentário com várias linhas.
 
 ```{r}
