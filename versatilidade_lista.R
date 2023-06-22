@@ -1,5 +1,5 @@
 # vetor
-load('C:/Users/67147020278/Documents/Introducao_Analise_Dados_R/data/dados_modulo_1.rda')
+load('./Documents/Introducao_Analise_Dados_R/data/dados_modulo_1.rda')
 
 # atribuir um rótulo ao vetor dap
 attr(dap, 'Diâmetro de Árvores') <- 'Vetor de diâmetros'
