@@ -10,4 +10,4 @@ gestacao <- df$Gestation
 
 # Salvar os vetores
 save(especies, cerebro, corpo, prole, gestacao,
-     file = 'C:/Users/67147020278/Documents/Introducao_Analise_Dados_R/data/dados_modulo_1_aula_3.rda')
+     file = './Documents/Introducao_Analise_Dados_R/data/dados_modulo_1_aula_3.rda')
