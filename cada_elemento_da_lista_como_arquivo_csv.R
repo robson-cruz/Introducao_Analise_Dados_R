@@ -2,7 +2,7 @@
 library(openxlsx)
 
 # Ler lista das classes taxonomicas
-lista <- readRDS('C:/Users/67147020278/Documents/Introducao_Analise_Dados_R/data/lista_classes_fauna_ameacada.rds')
+lista <- readRDS('./Documents/Introducao_Analise_Dados_R/data/lista_classes_fauna_ameacada.rds')
 
 # Interar sobre os elemento da lista (classes taxonomicas) e salvar cada elemento
 # como um arquivo .csv
